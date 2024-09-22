@@ -18,13 +18,24 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     [blocks.segments.properties]
       style = 'full'
 
+[[blocks.segments]]
+    type = 'git'
+    style = 'plain'
+    foreground = 'p:surface2'
+    background = 'transparent'
+    template = " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}"
   [[blocks.segments]]
     type = 'git'
     style = 'plain'
     foreground = 'p:surface2'
     background = 'transparent'
-    template = ' {{ .UpstreamIcon }}{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}<p:rosewater>*{{ end }}<p:subtext0>{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Behind }}<p:teal>⇣{{ end }}{{ if .Ahead }}⇡{{ end }}'  
-
+foreground_templates = [
+  "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}",
+  "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:peach{{ end }}",
+  "{{ if gt .Ahead 0 }}p:sapphire{{ end }}",
+  "{{ if gt .Behind 0 }}p:sapphire{{ end }}"
+]
+template = "{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}"
     [blocks.segments.properties]
       branch_icon = ''
       commit_icon = '@'
