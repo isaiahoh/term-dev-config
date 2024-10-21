@@ -2,9 +2,9 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     python = { "black" },
-    rust = { "rustfmt" },
     cmake = { "cmakelang" },
     markdown = { "prettier" },
+    toml = { "taplo" },
     -- css = { "prettier" },
     -- html = { "prettier" },
   },

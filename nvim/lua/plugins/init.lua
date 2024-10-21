@@ -13,6 +13,13 @@ return {
     end,
   },
   {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "configs.lint"
+    end,
+  },
+  {
     "rcarriga/nvim-dap-ui",
     event = "VeryLazy",
     dependencies = {
@@ -66,7 +73,7 @@ return {
         cmake_use_preset = true,
         cmake_regenerate_on_save = true,
         cmake_generate_options = {
-          "-G Ninja Multi-Config",
+          "-G Ninja",
           "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
           "-DCMAKE_TOOLCHAIN_FILE=" .. os.getenv "VCPKG_ROOT" .. "/scripts/buildsystems/vcpkg.cmake",
         },
@@ -105,6 +112,14 @@ return {
     opts = {},
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
+  {
+    "danymat/neogen",
+    event = "VeryLazy",
+    config = true,
+    version = "*",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {

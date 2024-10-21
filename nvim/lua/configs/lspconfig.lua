@@ -4,7 +4,7 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls", "taplo", "marksman" }
+local servers = { "html", "cssls", "taplo", "marksman", "pyright" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -29,9 +29,7 @@ lspconfig.clangd.setup {
     "clangd",
     "--background-index",
     "--clang-tidy",
-    "--clang-tidy-checks=*",
-    "--completion-style=bundled",
-    "--header-insertion=iwyu",
+    "--log=verbose",
   },
 }
 
@@ -49,42 +47,6 @@ lspconfig.cmake.setup {
     return lspconfig.util.find_git_ancestor(fname) or lspconfig.util.path.dirname(fname)
   end,
   settings = {},
-}
-
-lspconfig.pyright.setup {
-  on_init = nvlsp.on_init,
-  on_attach = nvlsp.on_attach,
-  settings = {
-    pyright = {
-      disableOrganizeImports = true,
-    },
-    python = {
-      analysis = {
-        ignore = { "*" },
-      },
-    },
-  },
-  capabilities = nvlsp.capabilities,
-  filetypes = { "python" },
-}
-lspconfig.ruff.setup {
-  on_init = nvlsp.on_init,
-  on_attach = nvlsp.on_attach,
-  capabilities = nvlsp.capabilities,
-}
-
-lspconfig.rust_analyzer.setup {
-  on_init = nvlsp.on_init,
-  on_attach = nvlsp.on_attach,
-  settings = {
-    ["rust-analyzer"] = {
-      diagnostics = {
-        enable = false,
-      },
-    },
-  },
-  capabilities = nvlsp.capabilities,
-  filtypes = { "rust" },
 }
 
 -- configuring single server, example: typescript

@@ -1,0 +1,5 @@
+---
+Checks: "bugprone-*,clang-analyzer-*,misc-*,modernize-*,performance-*,cppcoreguidelines-*,-modernize-use-trailing-return-type"
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+FormatStyle: none
