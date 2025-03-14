@@ -54,7 +54,7 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    config = function(_, _)
+    config = function()
       local map = vim.keymap.set
       map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "Add breakpoint at line" })
       map("n", "<leader>dr", "<cmd>DapContinue<CR>", { desc = "Start or continue the debugger" })
@@ -76,6 +76,7 @@ return {
           "-G Ninja",
           "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
           "-DCMAKE_TOOLCHAIN_FILE=" .. os.getenv "VCPKG_ROOT" .. "/scripts/buildsystems/vcpkg.cmake",
+          "-DPython3_EXECUTABLE=/usr/bin/python3",
         },
         cmake_build_options = { "--config Release" },
         cmake_build_directory = "build",
@@ -118,6 +119,10 @@ return {
     config = true,
     version = "*",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "github/copilot.vim",
+    event = "VeryLazy",
   },
 
   -- {

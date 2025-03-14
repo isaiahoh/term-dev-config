@@ -4,9 +4,10 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls", "taplo", "marksman", "pyright" }
+local servers = { "html", "cssls", "taplo", "marksman", "bashls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
+nvlsp.capabilities.offsetEncoding = { "utf-16" }
 -- lsps with default config
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -29,7 +30,7 @@ lspconfig.clangd.setup {
     "clangd",
     "--background-index",
     "--clang-tidy",
-    "--log=verbose",
+    "--header-insertion=iwyu",
   },
 }
 
@@ -49,7 +50,45 @@ lspconfig.cmake.setup {
   settings = {},
 }
 
--- configuring single server, example: typescript
+lspconfig.pylsp.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    pylsp = {
+      plugins = {
+        -- formatter options
+        black = { enabled = true },
+        autopep8 = { enabled = false },
+        yapf = { enabled = false },
+        -- linter options
+        ruff = {
+          enabled = true,
+          select = {
+            "D",
+            "F",
+            "UP",
+            "B",
+            "SIM",
+            "I",
+          },
+        },
+        pylint = { enabled = false },
+        pyflakes = { enabled = false },
+        pycodestyle = { enabled = false },
+        -- type checker
+        pylsp_mypy = { enabled = true, live_mode = true },
+        -- auto-completion options
+        jedi_completion = { fuzzy = true },
+        -- import sorting
+        pyls_isort = { enabled = true },
+      },
+    },
+  },
+  flags = {
+    debounce_text_changes = 200,
+  },
+} -- configuring single server, example: typescript
 -- lspconfig.tsserver.setup {
 --   on_attach = nvlsp.on_attach,
 --   on_init = nvlsp.on_init,
