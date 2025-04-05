@@ -78,7 +78,7 @@ return {
           "-DCMAKE_TOOLCHAIN_FILE=" .. os.getenv "VCPKG_ROOT" .. "/scripts/buildsystems/vcpkg.cmake",
           "-DPython3_EXECUTABLE=/usr/bin/python3",
         },
-        cmake_build_options = { "--config Release" },
+        cmake_build_options = {},
         cmake_build_directory = "build",
         cmake_soft_link_compile_commands = false,
         cmake_compile_commands_from_lsp = true,

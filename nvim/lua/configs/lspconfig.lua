@@ -65,23 +65,23 @@ lspconfig.pylsp.setup {
         ruff = {
           enabled = true,
           select = {
-            "D",
             "F",
             "UP",
             "B",
             "SIM",
             "I",
+            "ANN",
           },
         },
         pylint = { enabled = false },
         pyflakes = { enabled = false },
         pycodestyle = { enabled = false },
         -- type checker
-        pylsp_mypy = { enabled = true, live_mode = true },
+        pylsp_mypy = { enabled = true, live_mode = true, report_progress = true },
         -- auto-completion options
         jedi_completion = { fuzzy = true },
         -- import sorting
-        pyls_isort = { enabled = true },
+        pyls_isort = { enabled = true, profile = "black" },
       },
     },
   },

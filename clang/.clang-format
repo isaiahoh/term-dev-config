@@ -1,13 +1,51 @@
----
+Language: Cpp
 BasedOnStyle: Google
+AccessModifierOffset: -2
 IndentWidth: 2
 ColumnLimit: 120
----
-Language: Cpp
 DerivePointerAlignment: false
 PointerAlignment: Left
+QualifierAlignment: Right
 AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
-AlignConsecutiveMacros: true
-BinPackParameters: false
-
+BinPackParameters: true
+BinPackArguments: true
+SpacesBeforeTrailingComments: 2
+AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortBlocksOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: Yes
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+# Include ordering settings
+IncludeBlocks: Regroup
+SortIncludes: true
+# Category 0: Associated header (highest priority)
+# Category 1: C system headers
+# Category 2: C++ standard library headers
+# Category 3: Other library headers (external dependencies)
+# Category 4: Project headers
+IncludeCategories:
+  # Associated header (same name as source file)
+  - Regex: ^"[[:alnum:]_]+\.h"$
+    Priority: 0
+    SortPriority: 0
+  # C system headers
+  - Regex: ^<[[:alnum:].]+\.h>
+    Priority: 1
+    SortPriority: 1
+  # C++ standard library headers (no .h extension)
+  - Regex: ^<[[:alnum:]_]+>
+    Priority: 2
+    SortPriority: 2
+  # Other library headers (external dependencies)
+  - Regex: ^<.*>
+    Priority: 3
+    SortPriority: 3
+  # Project headers
+  - Regex: ^".*"
+    Priority: 4
+    SortPriority: 4
